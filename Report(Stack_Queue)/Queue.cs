@@ -86,7 +86,7 @@ namespace Report_Stack_Queue_
         private bool IsFull()                   // 배열허용량에 데이터가 꽉찼을 경우
         {
             if (head > tail)                    // 선형에서 보면 t - h인 상황으로 순환구조에서는 t이 한바퀴를 돌은 상황이다
-                return head == tail + 1;        // 
+                return head == tail + 1;        // tail이 head바로 1칸뒤에 있는 상황이니 +1해서 head과 tail이 같은 조건을 반환한다
             else
                 return Count == array.Length - 1 && tail == array.Length - 1;   // tail이 배열 마지막에 있는경우 바로 위해 코드를 인식하지 못하는 상황을 보강하기위해 설계함   
         }
