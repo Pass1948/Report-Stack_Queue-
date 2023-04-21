@@ -15,7 +15,7 @@ namespace Report_Stack_Queue_
         private List<T> container;                    // 일반형 List를 불러오고  
         public int Count { get {return container.Count; } } 
         // 현재 배열의 크기를 호출하고 싶다면
-        // List에서는 Count를 사용하기애 List의 Count도 불러와서 활용한다
+        // List에서는 Count를 사용하기애 List의 Count를 불러와서 활용한다
         public Stack2()                                // 변수에 초기화 해준다
         {
             this.container = new List<T>();
