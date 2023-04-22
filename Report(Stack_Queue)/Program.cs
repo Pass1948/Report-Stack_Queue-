@@ -29,10 +29,10 @@
             Console.WriteLine("================Queue================");
             Queue<int> queue = new Queue<int>();
 
-            for (int i = 0; i < 5; i++) queue.Enqueue(i);   
-
-            Console.WriteLine(queue.Peek());               
-
+            for (int i = 0; i < 5; i++) queue.Enqueue(i);
+            Console.WriteLine("================Queue_Peek================");
+            Console.WriteLine(queue.Peek());
+            Console.WriteLine("================Queue_Dequeue================");
             while (queue.Count > 0)
                 Console.WriteLine(queue.Dequeue());
         }
