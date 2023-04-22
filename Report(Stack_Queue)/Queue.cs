@@ -88,7 +88,8 @@ namespace Report_Stack_Queue_
             if (head > tail)                    // 선형에서 보면 t - h인 상황으로 순환구조에서는 t이 한바퀴를 돌은 상황이다
                 return head == tail + 1;        // tail이 head바로 1칸뒤에 있는 상황이니 +1해서 head과 tail이 같은 조건을 반환한다
             else
-                return Count == array.Length - 1 && tail == array.Length - 1;   // tail이 배열 마지막에 있는경우 바로 위해 코드를 인식하지 못하는 상황을 보강하기위해 설계함   
+                return Count == array.Length - 1 && tail == array.Length - 1;   // tail이 배열 마지막에 있는경우 바로 위에 코드를 인식하지 못하는 상황을 보강하기위해 설계함   
+                // 배열크기와 허용량 -1이 같고 t이 허용량-1과 같을 경우는 h 1 2 3 t (허용량5) 이런 상태가 되니 꽉찬 상태라 판단됨
         }
 
         private void Grow()
@@ -96,17 +97,19 @@ namespace Report_Stack_Queue_
             int newCapacity = array.Length * 2;         // 더큰 배열을 만들기
             T[] newArray = new T[newCapacity + 1];      // tail 자리 만들기
 
-            if (head < tail)                        // head가 tail의 앞에 있을땐 그냥 복사가능
+            if (head < tail)                            // head가 tail의 앞에 있을땐 그냥 복사가능
             {
-                Array.Copy(array, head, newArray, 0, tail);
+                Array.Copy(array, head, newArray, 0, tail); //  본래배열의 head 부터 tail까지 새로운 배열의 0을 시작점으로 복사
             }
-            else                                   // tail이 head보다 더욱 앞에 있어서 큰배열에 빈자리가 생길경우
-            // 앞에 데이터(head)을 복사해서 맨 처음에 붙여넣고 뒤에 데이터(tail) 복사해서 head다음 데이터에 붙여넣어서 연속적인 배열로 만들어줌
+            else                                   // tail이 head보다 더욱 앞에 있어서 큰배열에 빈자리가 생길경우 (4(t)[][]1(h) <- 이런 경우를 말한다)
+                                                   // 앞에 데이터(head)을 복사해서 맨 처음에 붙여넣고 뒤에 데이터(tail) 복사해서
+                                                   // head다음 데이터에 붙여넣어서 연속적인 배열로 만들어줌
             {
-                Array.Copy(array, head, newArray, 0, array.Length - head);  // 헤드 부터 끝까지 복사해서 맨처음으로 불여넣고
-                Array.Copy(array, 0, newArray, array.Length - head, tail);  // tail부터 0번까지 복사해서 head다음에 붙여넣기
+                Array.Copy(array, head, newArray, 0, array.Length - head);  // head부터 뒤까지 있는 데이터들까지 복사해서 새로운 배열에 복사
+                                                                            // 허용량길이-헤드 : 0은 새로운 배열에 있으니 0은 생각치 안는다
+                Array.Copy(array, 0, newArray, array.Length - head, tail);  // 0번부터 tail까지 요소를 복사해서 head다음에 붙여넣기
                 head = 0;
-                tail = Count;
+                tail = Count;                                               // 현재 배열크기 설정
             }
             array = newArray;
         }
